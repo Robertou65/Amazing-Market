@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 36 100% 98%;
+  --foreground: 24 15% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 24 15% 15%;
+  --primary: 25 95% 53%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 33 40% 94%;
+  --muted-foreground: 26 13% 38%;
+  --border: 30 30% 88%;
+  --input: 30 30% 88%;
+  --ring: 25 95% 53%;
+  --radius: 0.75rem;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
