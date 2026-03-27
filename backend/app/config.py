@@ -4,10 +4,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
 
-    DB_HOST: str
-    DB_USER: str
-    DB_PASSWORD: str
-    DB_NAME: str
+    DB_HOST: str = "localhost"
+    DB_USER: str = "app_user"
+    DB_PASSWORD: str = "app_password"
+    DB_NAME: str = "amazing_market"
     DB_PORT: int = 3306
 
     BACKEND_URL: str = "http://localhost:8000"
