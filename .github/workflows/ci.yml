@@ -118,7 +118,7 @@ jobs:
           MYSQL_PWD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }} 
         run: |
-          mysql -h 127.0.0.1 -u $MYSQL_USER -p $MYSQL_PWD amazing_market < database.sql
+          mysql -h 127.0.0.1 -u $MYSQL_USER amazing_market < database.sql
 
       - name: Run backend tests
         working-directory: backend
@@ -186,7 +186,7 @@ jobs:
           MYSQL_PWD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
         run: |
-          mysql -h 127.0.0.1 -u $MYSQL_USER -p $MYSQL_PWD amazing_market < database.sql
+          mysql -h 127.0.0.1 -u $MYSQL_USER amazing_market < database.sql
 
       - name: Generate backend coverage (HTML)
         working-directory: backend
