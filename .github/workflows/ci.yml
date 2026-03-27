@@ -74,10 +74,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: amazing_market
-          MYSQL_USER: app_user
-          MYSQL_PASSWORD: Pz0@PhXifvht94%I
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -109,23 +109,22 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Install MySQL client
+        run: sudo apt-get update && sudo apt-get install -y mysql-client
+
       - name: Initialize database schema
         working-directory: backend
         env:
-          DB_HOST: 127.0.0.1
-          DB_USER: app_user
-          DB_PASSWORD: Pz0@PhXifvht94%I
-          DB_NAME: amazing_market
-          DB_PORT: 3306
+          MYSQL_PWD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
-          mysql -h 127.0.0.1 -u app_user -p'Pz0@PhXifvht94%I' amazing_market < database.sql
+          mysql -h 127.0.0.1 -u ${{ secrets.MYSQL_USER }} amazing_market < database.sql
 
       - name: Run backend tests
         working-directory: backend
         env:
           DB_HOST: 127.0.0.1
-          DB_USER: app_user
-          DB_PASSWORD: Pz0@PhXifvht94%I
+          DB_USER: ${{ secrets.MYSQL_USER }}
+          DB_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           DB_NAME: amazing_market
           DB_PORT: 3306
         run: pytest
@@ -142,10 +141,10 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: amazing_market
-          MYSQL_USER: app_user
-          MYSQL_PASSWORD: Pz0@PhXifvht94%I
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -177,23 +176,22 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      - name: Install MySQL client
+        run: sudo apt-get update && sudo apt-get install -y mysql-client
+
       - name: Initialize database schema
         working-directory: backend
         env:
-          DB_HOST: 127.0.0.1
-          DB_USER: app_user
-          DB_PASSWORD: Pz0@PhXifvht94%I
-          DB_NAME: amazing_market
-          DB_PORT: 3306
+          MYSQL_PWD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
-          mysql -h 127.0.0.1 -u app_user -p'Pz0@PhXifvht94%I' amazing_market < database.sql
+          mysql -h 127.0.0.1 -u ${{ secrets.MYSQL_USER }} amazing_market < database.sql
 
       - name: Generate backend coverage (HTML)
         working-directory: backend
         env:
           DB_HOST: 127.0.0.1
-          DB_USER: app_user
-          DB_PASSWORD: Pz0@PhXifvht94%I
+          DB_USER: ${{ secrets.MYSQL_USER }}
+          DB_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           DB_NAME: amazing_market
           DB_PORT: 3306
         run: pytest --cov=app --cov-report=term --cov-report=html:htmlcov

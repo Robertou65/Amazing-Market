@@ -8,22 +8,29 @@ from app.config import settings
 
 logger = logging.getLogger("uvicorn.error")
 
+_db_pool = None
 
-db_pool = pooling.MySQLConnectionPool(
-    pool_name="amazing_market_pool",
-    pool_size=5,
-    host=settings.DB_HOST,
-    user=settings.DB_USER,
-    password=settings.DB_PASSWORD,
-    database=settings.DB_NAME,
-    port=settings.DB_PORT,
-)
+
+def _get_pool():
+    """Lazy initialization of the database pool"""
+    global _db_pool
+    if _db_pool is None:
+        _db_pool = pooling.MySQLConnectionPool(
+            pool_name="amazing_market_pool",
+            pool_size=5,
+            host=settings.DB_HOST,
+            user=settings.DB_USER,
+            password=settings.DB_PASSWORD,
+            database=settings.DB_NAME,
+            port=settings.DB_PORT,
+        )
+    return _db_pool
 
 
 @contextmanager
 def get_db_connection():
     """Context manager para obtener una conexión de la base de datos"""
-    conn = db_pool.get_connection()
+    conn = _get_pool().get_connection()
     try:
         yield conn
     finally:
